@@ -1,0 +1,11 @@
+# ignore everything ...
+/*
+# ... but not the following
+!/source
+!/test
+!/package.json
+!/package-lock.json
+!/.gitignore
+!/example
+!/README.md
+!/LICENSE

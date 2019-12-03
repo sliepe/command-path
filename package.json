@@ -1,0 +1,31 @@
+{
+  "name": "command-path",
+  "version": "1.0.0",
+  "description": "Simple helper class, to test if a command path is absolute, relative, local or global",
+  "keywords": [
+    "command",
+    "path",
+    "absolute",
+    "relative",
+    "local",
+    "global"
+  ],
+  "main": "source/command-path/command-path.js",
+  "types": "source/command-path/command-path.d.ts",
+  "scripts": {
+    "watch": "tsc --watch",
+    "test": "mocha"
+  },
+  "author": "Sebastian Liepe",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.12.14",
+    "mocha": "^6.2.2",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.2"
+  },
+  "dependencies": {
+    "npm-which": "^3.0.1"
+  }
+}

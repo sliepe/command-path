@@ -12,10 +12,10 @@ export default class CommandPath {
         }
     }
 
-    static isGlobal(commandPath: string): boolean {
+    static isGlobal(commandName: string): boolean {
         // Not absolute, not relative and not local
-        if (!this.isAbsolute(commandPath) && !this.isRelative(commandPath) && !this.isLocal(commandPath)) {
-            // Can only be absolute
+        if (!this.isAbsolute(commandName) && !this.isRelative(commandName) && !this.isLocal(commandName)) {
+            // Can only be global
             return true;
         }
     }
@@ -35,24 +35,24 @@ export default class CommandPath {
 
     private static localPathCache: string[][] = [];
 
-    static isLocal(commandPath: string, cwd: string = process.cwd()): boolean {
+    static isLocal(commandName: string, cwd: string = process.cwd()): boolean {
         const npmWhich = require('npm-which')(cwd);
 
         if (this.localPathCache[cwd]) {
-            if (this.localPathCache[cwd][commandPath]) {
+            if (this.localPathCache[cwd][commandName]) {
                 return true;
             }
         }
 
         try {
-            const localPath = npmWhich.sync(commandPath);
+            const localPath = npmWhich.sync(commandName);
 
             if (!this.localPathCache[cwd]) {
                 this.localPathCache[cwd] = [];
             }
 
-            if (!this.localPathCache[cwd][commandPath]) {
-                this.localPathCache[cwd][commandPath] = localPath;
+            if (!this.localPathCache[cwd][commandName]) {
+                this.localPathCache[cwd][commandName] = localPath;
             }
 
             return true;
@@ -61,9 +61,9 @@ export default class CommandPath {
         }
     }
 
-    static getLocal(commandPath: string, cwd: string = process.cwd()): string {
-        if (this.isLocal(commandPath, cwd)) {
-            return this.localPathCache[cwd][commandPath];
+    static getLocal(commandName: string, cwd: string = process.cwd()): string {
+        if (this.isLocal(commandName, cwd)) {
+            return this.localPathCache[cwd][commandName];
         }
     }
 }

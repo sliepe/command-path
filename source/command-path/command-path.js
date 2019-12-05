@@ -13,10 +13,10 @@ var CommandPath = /** @class */ (function () {
             return path.isAbsolute(normalizedCommandPath);
         }
     };
-    CommandPath.isGlobal = function (commandPath) {
+    CommandPath.isGlobal = function (commandName) {
         // Not absolute, not relative and not local
-        if (!this.isAbsolute(commandPath) && !this.isRelative(commandPath) && !this.isLocal(commandPath)) {
-            // Can only be absolute
+        if (!this.isAbsolute(commandName) && !this.isRelative(commandName) && !this.isLocal(commandName)) {
+            // Can only be global
             return true;
         }
     };
@@ -30,21 +30,21 @@ var CommandPath = /** @class */ (function () {
             return !path.isAbsolute(normalizedCommandPath);
         }
     };
-    CommandPath.isLocal = function (commandPath, cwd) {
+    CommandPath.isLocal = function (commandName, cwd) {
         if (cwd === void 0) { cwd = process.cwd(); }
         var npmWhich = require('npm-which')(cwd);
         if (this.localPathCache[cwd]) {
-            if (this.localPathCache[cwd][commandPath]) {
+            if (this.localPathCache[cwd][commandName]) {
                 return true;
             }
         }
         try {
-            var localPath = npmWhich.sync(commandPath);
+            var localPath = npmWhich.sync(commandName);
             if (!this.localPathCache[cwd]) {
                 this.localPathCache[cwd] = [];
             }
-            if (!this.localPathCache[cwd][commandPath]) {
-                this.localPathCache[cwd][commandPath] = localPath;
+            if (!this.localPathCache[cwd][commandName]) {
+                this.localPathCache[cwd][commandName] = localPath;
             }
             return true;
         }
@@ -52,10 +52,10 @@ var CommandPath = /** @class */ (function () {
             return false;
         }
     };
-    CommandPath.getLocal = function (commandPath, cwd) {
+    CommandPath.getLocal = function (commandName, cwd) {
         if (cwd === void 0) { cwd = process.cwd(); }
-        if (this.isLocal(commandPath, cwd)) {
-            return this.localPathCache[cwd][commandPath];
+        if (this.isLocal(commandName, cwd)) {
+            return this.localPathCache[cwd][commandName];
         }
     };
     CommandPath.localPathCache = [];

@@ -35,5 +35,19 @@ describe("CommandPath", function () {
             assert.ok(isAbsolutPath);
         });
     });
+    describe(".containsWhitespace()", function () {
+        it('should return true if command path contains whitespace', function () {
+            var containsWhitespace = command_path_1.default.containsWhitespace('C:\Program Files\nodejs\node.EXE');
+            assert.equal(containsWhitespace, true);
+        });
+    });
+    describe(".surroundWithDoubleQuotes()", function () {
+        it('should return command path with double quotes surrounded', function () {
+            var surroundWithDoubleQuotes = command_path_1.default.surroundWithDoubleQuotes('C:\Program Files\nodejs\node.EXE');
+            var firstCharacter = surroundWithDoubleQuotes.charAt(0);
+            var lastCharacter = surroundWithDoubleQuotes.charAt(surroundWithDoubleQuotes.length - 1);
+            assert.equal(firstCharacter == '"' && lastCharacter == '"', true);
+        });
+    });
 });
 //# sourceMappingURL=command-path.spec.js.map

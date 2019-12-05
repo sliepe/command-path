@@ -39,6 +39,7 @@ var CommandPath = /** @class */ (function () {
             }
         }
         try {
+            // TODO: Why it returns an absolute path (C:\Program Files\nodejs\node.EXE) to installed node, if we using "node" as command name? Should left as "node", if not locally installed as node module
             var localPath = npmWhich.sync(commandName);
             if (!this.localPathCache[cwd]) {
                 this.localPathCache[cwd] = [];
@@ -57,6 +58,16 @@ var CommandPath = /** @class */ (function () {
         if (this.isLocal(commandName, cwd)) {
             return this.localPathCache[cwd][commandName];
         }
+    };
+    CommandPath.containsWhitespace = function (commandPath) {
+        // If command path contains any whitespace
+        if (/\s/.test(commandPath)) {
+            return true;
+        }
+    };
+    CommandPath.surroundWithDoubleQuotes = function (commandPath) {
+        // Sourround and return command path with double quotes (https://nodejs.org/docs/latest-v12.x/api/child_process.html#child_process_child_process_exec_command_options_callback, https://github.com/nodejs/node/issues/6803)
+        return '\"' + commandPath + '\"';
     };
     CommandPath.localPathCache = [];
     return CommandPath;

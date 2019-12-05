@@ -1,6 +1,6 @@
 {
   "name": "command-path",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Simple helper class, to test if a command path is absolute, relative, local or global",
   "keywords": [
     "command",

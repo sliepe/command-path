@@ -44,4 +44,23 @@ describe("CommandPath", function () {
             assert.ok(isAbsolutPath);
         })
     });
+
+    describe(".containsWhitespace()", function () {
+        it('should return true if command path contains whitespace', function () {
+            const containsWhitespace = CommandPath.containsWhitespace('C:\Program Files\nodejs\node.EXE');
+
+            assert.equal(containsWhitespace, true);
+        })
+    });
+
+    describe(".surroundWithDoubleQuotes()", function () {
+        it('should return command path with double quotes surrounded', function () {
+            const surroundWithDoubleQuotes = CommandPath.surroundWithDoubleQuotes('C:\Program Files\nodejs\node.EXE');
+
+            const firstCharacter = surroundWithDoubleQuotes.charAt(0);
+            const lastCharacter = surroundWithDoubleQuotes.charAt(surroundWithDoubleQuotes.length - 1);
+
+            assert.equal(firstCharacter == '"' && lastCharacter == '"', true);
+        })
+    });
 });

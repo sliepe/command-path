@@ -1,11 +1,13 @@
 # ignore everything ...
 /*
 # ... but not the following
+!/example
 !/source
 !/test
+!/.gitignore
+!/.mocharc.json
+!/.travis.yml
 !/package.json
 !/package-lock.json
-!/.gitignore
-!/example
-!/README.md
 !/LICENSE
+!/README.md
